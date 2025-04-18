@@ -79,9 +79,7 @@ export default function Home() {
         startTransition(async () => {
             try {
                 await createAlias(formData); // calls createAlias() using user's input data
-
                 const userAlias = formData.get('alias'); // retrieves alias input from formData
-
                 if (userAlias) { // ensures userAlias is not null/undefined
                     setShortened(`${window.location.origin}/${userAlias}`); // uses string interpolation to append userAlias to current page url
                 }
