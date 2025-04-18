@@ -1,14 +1,12 @@
+import getCollection, { URL_COLLECTION } from '@/db';
 import { redirect } from 'next/navigation';
-import get from '../get';
 
-export default async function RedirectPage({ params }: { params: Promise<{ alias: string }>;}) {
-    const { alias } = await params;
-    console.log("alias: ", alias);
+export default async function RedirectPage({ params }: { params: { alias: string } }) {
+    const collection = await getCollection(URL_COLLECTION); // connects to database and grabs url collection in mongodb
+    const record = await collection.findOne({ alias: params.alias }); // searches documents for alias
 
-    const url = await get(alias);
-
-    if (url) { // checks whether record exists and has url property
-        redirect(url); // if alias is found, it redirects user to matching URL using redirect()
+    if (record?.url) { // checks whether record exists and has url property
+        redirect(record.url); // if alias is found, it redirects user to matching URL using redirect()
     }
-    redirect("/");
+    return <p>Alias not found</p> // prints error message if alias is not found
 }

@@ -13,9 +13,9 @@ const Input = styled.input`
 `
 
 const Button = styled.button`
-    display: flex; 
-    flex-direction: column; 
-    margin: 5% auto; 
+    display: flex;
+    flex-direction: column;
+    margin: 5% auto;
     background-color: #98D2C0;
     color: white;
     padding: 2.5% 30%;
@@ -36,13 +36,13 @@ const Header2 = styled.h1`
     color: #231F20;
     font-size: x-large;
     font-weight: bolder;
-    padding-bottom: .5%; 
+    padding-bottom: .5%;
 `
 
 const StyledH3 = styled.h3`
     color: slategrey;
     font-style: italic;
-    padding-bottom: 2.5%; 
+    padding-bottom: 2.5%;
 `
 
 const StyledHead3 = styled.h3`
@@ -56,11 +56,11 @@ const Div = styled.div`
     padding-top: 3%;
 `
 const Div2 = styled.div`
-    background-color: white; 
-    margin: 3% 20%; 
+    background-color: white;
+    margin: 3% 20%;
     padding: 5%;
     border-radius: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 `
 
 export default function Home() {
@@ -79,16 +79,14 @@ export default function Home() {
         startTransition(async () => {
             try {
                 await createAlias(formData); // calls createAlias() using user's input data
+
                 const userAlias = formData.get('alias'); // retrieves alias input from formData
+
                 if (userAlias) { // ensures userAlias is not null/undefined
                     setShortened(`${window.location.origin}/${userAlias}`); // uses string interpolation to append userAlias to current page url
                 }
-            } catch (error) {
-                if (error instanceof Error) {
-                    setError(error.message);
-                } else {
-                    setError('An error occurred');
-                }
+            } catch (error: any) {
+                setError(error.message || 'An error occurred'); // returns error message if error occurs
             }
         });
     }
