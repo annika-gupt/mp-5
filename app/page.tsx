@@ -85,8 +85,12 @@ export default function Home() {
                 if (userAlias) { // ensures userAlias is not null/undefined
                     setShortened(`${window.location.origin}/${userAlias}`); // uses string interpolation to append userAlias to current page url
                 }
-            } catch (error: any) {
-                setError(error.message || 'An error occurred'); // returns error message if error occurs
+            } catch (error) {
+                if (error instanceof Error) {
+                    setError(error.message);
+                } else {
+                    setError('An error occurred');
+                }
             }
         });
     }
